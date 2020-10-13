@@ -34,10 +34,27 @@ def drop_egg_dp(K, N):
             dp2[n] = 1 + max(dp[x-1], dp2[n-x])
         dp = dp2[:]
     return dp[-1]
+    
+# math method
+def drop_egg_math(K, N):
+    if N == 1:
+        return 1
+    dp = [[0] * (K+1) for _ in range(N+1)]
+    for k in range(1, K+1):
+        dp[1][k] = 1
+    ans = -1
+    for t in range(2, N+1):
+        for k in range(1, K+1):
+            dp[t][k] = 1 + dp[t-1][k-1] + dp[t-1][k]
+        if dp[t][-1] >= N:
+            ans = t
+            break
+    return ans
 
 if __name__ == "__main__":
     N = 10
     K = 3
     print(drop_egg(K, N))
     print(drop_egg_dp(K, N))
+    print(drop_egg_math(K, N))
     
