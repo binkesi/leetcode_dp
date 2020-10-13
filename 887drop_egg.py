@@ -22,7 +22,22 @@ def drop_egg(K, N):
             memo[k, n] = ans
         return memo[k, n]
     return dp(K, N)
+    
+def drop_egg_dp(K, N):
+    dp = list(range(N+1))
+    dp2 = [0] * (N+1)
+    for k in range(2, K+1):
+        x = 1
+        for n in range(1, N+1):
+            while x < n and max(dp[x-1], dp2[n-x]) >= max(dp[x], dp2[n-x-1]):
+                x += 1
+            dp2[n] = 1 + max(dp[x-1], dp2[n-x])
+        dp = dp2[:]
+    return dp[-1]
+
 if __name__ == "__main__":
     N = 10
     K = 3
     print(drop_egg(K, N))
+    print(drop_egg_dp(K, N))
+    
