@@ -9,7 +9,7 @@ def drop_egg(K, N):
             else:
                 lo, hi = 1, n
                 while lo + 1 < hi:
-                    x = (lo+hi) // 2
+                    x = (lo + hi) // 2
                     t1 = dp(k-1, x-1)
                     t2 = dp(k, n-x)
                     if t1 < t2:
@@ -19,8 +19,8 @@ def drop_egg(K, N):
                     else:
                         lo = hi = x
                 ans = 1 + min(max(dp(k-1, x-1), dp(k, n-x)) for x in (lo, hi))
-            memo[k, n] = ans
-        return memo[k, n]
+            memo[(k, n)] = ans
+        return memo[(k, n)] 
     return dp(K, N)
     
 def drop_egg_dp(K, N):
@@ -33,6 +33,7 @@ def drop_egg_dp(K, N):
                 x += 1
             dp2[n] = 1 + max(dp[x-1], dp2[n-x])
         dp = dp2[:]
+        print(dp, dp2)
     return dp[-1]
     
 # math method
